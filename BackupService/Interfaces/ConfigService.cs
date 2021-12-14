@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace BackupService.Interfaces
 {
-    internal class ConfigService : IConfig
+    public class ConfigService : IConfig
     {
-        private AppConfig appConfig;
-        public ConfigService()
+        //private AppConfig appConfig;
+        private readonly IConfiguration _configuration;
+        public ConfigService(IConfiguration configuration)
         {
-
+            _configuration=configuration;
         }
-        public AppConfig GetAppConfig()
+        public async Task<AppConfig> GetAppConfigAsync()
         {
-            throw new NotImplementedException();
+            var appConfig = _configuration.GetSection("AppConfig").Get<AppConfig>();
+            return await Task.FromResult(appConfig);
         }
     }
 }

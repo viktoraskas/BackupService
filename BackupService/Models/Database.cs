@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BackupService.Models
 {
-    internal class Database
+    public class Database
     {
         public string? DatabaseName { get; set; }    
         public decimal? DatabaseSize { get; set; }

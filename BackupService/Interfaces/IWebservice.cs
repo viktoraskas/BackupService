@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BackupService.Interfaces
 {
-    internal interface IWebservice
+    public interface IWebservice
     {
         public Task<(bool, string)> PostMessage(IEnumerable<Database> databases);
     }

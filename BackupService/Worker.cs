@@ -1,3 +1,4 @@
+using BackupService.Interfaces;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 
@@ -6,10 +7,12 @@ namespace BackupService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+        private readonly IConfig _config;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IConfig config)
         {
             _logger = logger;
+            _config = config;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -17,10 +20,9 @@ namespace BackupService
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-
-                //backup();
-                //listdatabases();
-                await Task.Delay(100000, stoppingToken);
+                var config = await _config.GetAppConfigAsync();
+                _logger.LogInformation(config.FtpPasswordSecure);  
+                await Task.Delay(1000, stoppingToken);
             }
         }
 

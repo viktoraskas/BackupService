@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BackupService.Interfaces
 {
-    internal interface IConfig
+    public interface IConfig
     {
-        public AppConfig GetAppConfig();
+        public Task<AppConfig> GetAppConfigAsync();
     }
 }
